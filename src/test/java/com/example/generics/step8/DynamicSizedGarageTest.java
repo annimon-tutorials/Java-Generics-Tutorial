@@ -53,6 +53,23 @@ public class DynamicSizedGarageTest {
     }
 
     @Test
+    public void testAddAll2() {
+        List<Truck> trucks = new ArrayList<>();
+        trucks.add(new Truck("Hell yeah"));
+        trucks.add(new Truck("Terminator"));
+
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.add(new Car("Aston Martin"));
+        // Won't work if addAll parametrized as List<T>
+        // Error: incompatible types: java.util.List<com.example.generics.step8.Truck>
+        //        cannot be converted to java.util.List<com.example.generics.step8.Car>
+//        garage.addAll(trucks);
+
+//        assertThat(garage.get(2).getName(), is("Jaguar"));
+//        assertThat(garage.get(3).getName(), is("BMW"));
+    }
+
+    @Test
     public void testForEach() {
         DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
         garage.add(new Car("Toyota"));
