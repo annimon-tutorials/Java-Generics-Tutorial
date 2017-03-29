@@ -2,6 +2,7 @@ package com.example.generics.step8;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class DynamicSizedGarage<T extends Vehicle> {
 
@@ -15,7 +16,17 @@ public class DynamicSizedGarage<T extends Vehicle> {
         vehicles.add(t);
     }
 
+    public void addAll(List<T> list) {
+        vehicles.addAll(list);
+    }
+
     public T get(int index) {
         return vehicles.get(index);
+    }
+
+    public void forEach(Consumer<T> consumer) {
+        for (T vehicle : vehicles) {
+            consumer.accept(vehicle);
+        }
     }
 }

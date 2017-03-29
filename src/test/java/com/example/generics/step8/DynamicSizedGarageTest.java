@@ -1,5 +1,7 @@
 package com.example.generics.step8;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -33,5 +35,29 @@ public class DynamicSizedGarageTest {
         Motorcycle motorcycle2 = garage2.get(1);
         assertThat(motorcycle1.getName(), is("Honda CBR500R"));
         assertThat(motorcycle2.getName(), is("Harley-Davidson"));
+    }
+
+    @Test
+    public void testAddAll() {
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car("Toyota"));
+        cars.add(new Car("Jaguar"));
+        cars.add(new Car("BMW"));
+
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.add(new Car("Aston Martin"));
+        garage.addAll(cars);
+
+        assertThat(garage.get(2).getName(), is("Jaguar"));
+        assertThat(garage.get(3).getName(), is("BMW"));
+    }
+
+    @Test
+    public void testForEach() {
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.add(new Car("Toyota"));
+        garage.add(new Car("Jaguar"));
+        garage.add(new Car("BMW"));
+        garage.forEach(car -> System.out.println(car.getName()));
     }
 }
