@@ -26,4 +26,13 @@ public class GarageTest {
         assertThat(car.getName(), is("Aston Martin"));
         assertThat(motorcycle.getName(), is("Honda CBR500R"));
     }
+
+    @Test
+    public void testJupiter() {
+        // Wow, Jupiter, wtf are you doing in my garage?!
+        Garage<Jupiter> garage = new Garage<>();
+        garage.set(new Jupiter());
+        Jupiter jupiter = garage.get();
+        assertThat(jupiter.getClass().getSimpleName(), is("Jupiter"));
+    }
 }
