@@ -2,6 +2,7 @@ package com.example.generics.step8;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -73,5 +74,23 @@ public class DynamicSizedGarageTest {
         garage.add(new Car("Jaguar"));
         garage.add(new Car("BMW"));
         garage.forEach(car -> System.out.println(car.getName()));
+    }
+
+    @Test
+    public void testForEach2() {
+        Consumer<Object> objectConsumer = object -> System.out.println(object.hashCode());
+        Consumer<Vehicle> vehicleConsumer = vehicle -> System.out.println(vehicle.getName());
+
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.add(new Car("Toyota"));
+        garage.add(new Car("Jaguar"));
+        garage.add(new Car("BMW"));
+        // Won't work if forEach parametrized as Consumer<T>
+        // Error: incompatible types: java.util.function.Consumer<com.example.generics.step8.Vehicle>
+        //        cannot be converted to java.util.function.Consumer<com.example.generics.step8.Car>
+        // garage.forEach(vehicleConsumer);
+        // Error: incompatible types: java.util.function.Consumer<java.lang.Object>
+        //        cannot be converted to java.util.function.Consumer<com.example.generics.step8.Car>
+        // garage.forEach(objectConsumer);
     }
 }
