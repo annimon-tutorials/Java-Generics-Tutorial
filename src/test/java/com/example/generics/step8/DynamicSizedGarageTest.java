@@ -60,13 +60,10 @@ public class DynamicSizedGarageTest {
 
         DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
         garage.add(new Car("Aston Martin"));
-        // Won't work if addAll parametrized as List<T>
-        // Error: incompatible types: java.util.List<com.example.generics.step8.Truck>
-        //        cannot be converted to java.util.List<com.example.generics.step8.Car>
-//        garage.addAll(trucks);
+        garage.addAll(trucks);
 
-//        assertThat(garage.get(2).getName(), is("Jaguar"));
-//        assertThat(garage.get(3).getName(), is("BMW"));
+        assertThat(garage.get(1).getName(), is("Hell yeah"));
+        assertThat(garage.get(2).getName(), is("Terminator"));
     }
 
     @Test

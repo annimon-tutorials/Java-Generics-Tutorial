@@ -16,7 +16,7 @@ public class DynamicSizedGarage<T extends Vehicle> {
         vehicles.add(t);
     }
 
-    public void addAll(List<T> list) {
+    public void addAll(List<? extends T> list) {
         vehicles.addAll(list);
     }
 
