@@ -24,7 +24,7 @@ public class DynamicSizedGarage<T extends Vehicle> {
         return vehicles.get(index);
     }
 
-    public void forEach(Consumer<T> consumer) {
+    public void forEach(Consumer<? super T> consumer) {
         for (T vehicle : vehicles) {
             consumer.accept(vehicle);
         }

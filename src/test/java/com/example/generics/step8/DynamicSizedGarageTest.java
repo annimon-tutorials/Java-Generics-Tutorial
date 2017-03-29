@@ -85,12 +85,7 @@ public class DynamicSizedGarageTest {
         garage.add(new Car("Toyota"));
         garage.add(new Car("Jaguar"));
         garage.add(new Car("BMW"));
-        // Won't work if forEach parametrized as Consumer<T>
-        // Error: incompatible types: java.util.function.Consumer<com.example.generics.step8.Vehicle>
-        //        cannot be converted to java.util.function.Consumer<com.example.generics.step8.Car>
-        // garage.forEach(vehicleConsumer);
-        // Error: incompatible types: java.util.function.Consumer<java.lang.Object>
-        //        cannot be converted to java.util.function.Consumer<com.example.generics.step8.Car>
-        // garage.forEach(objectConsumer);
+        garage.forEach(vehicleConsumer);
+        garage.forEach(objectConsumer);
     }
 }
