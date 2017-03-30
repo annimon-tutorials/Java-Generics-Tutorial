@@ -45,7 +45,7 @@ public class DynamicSizedGarage<T extends Vehicle> {
         return result;
     }
 
-    public <U> List<U> map(Function<T, U> function) {
+    public <U> List<U> map(Function<? super T, ? extends U> function) {
         List<U> result = new ArrayList<>();
         for (T vehicle : vehicles) {
             result.add(function.apply(vehicle));
