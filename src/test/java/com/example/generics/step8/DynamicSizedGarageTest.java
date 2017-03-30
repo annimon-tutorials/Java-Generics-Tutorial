@@ -1,6 +1,7 @@
 package com.example.generics.step8;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -140,5 +141,48 @@ public class DynamicSizedGarageTest {
         assertThat(jaguars.size(), is(2));
         assertThat(jaguars.get(0).getName(), is("Jaguar XJ"));
         assertThat(jaguars.get(1).getName(), is("Jaguar XF"));
+    }
+
+    @Test
+    public void testFill() {
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.fill(() -> new Car("BMW"), 2);
+
+        assertThat(garage.get(0).getName(), is("BMW"));
+        assertThat(garage.get(1).getName(), is("BMW"));
+    }
+
+    @Test
+    public void testMerge() {
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.add(new Car("BMW M6"));
+        garage.add(new Car("Jaguar XJ"));
+
+        DynamicSizedGarage<Car> garage2 = new DynamicSizedGarage<>();
+        garage2.add(new Car("Aston Martin DB11"));
+        garage2.add(new Car("Toyota Corolla"));
+
+        garage.merge(garage2);
+
+        assertThat(garage.get(0).getName(), is("BMW M6"));
+        assertThat(garage.get(1).getName(), is("Jaguar XJ"));
+        assertThat(garage.get(2).getName(), is("Aston Martin DB11"));
+        assertThat(garage.get(3).getName(), is("Toyota Corolla"));
+    }
+
+    @Test
+    public void testSort() {
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.add(new Car("BMW M6"));
+        garage.add(new Car("Jaguar XJ"));
+        garage.add(new Car("Aston Martin DB11"));
+        garage.add(new Car("Toyota Corolla"));
+
+        garage.sort(Comparator.comparing(Car::getName));
+
+        assertThat(garage.get(0).getName(), is("Aston Martin DB11"));
+        assertThat(garage.get(1).getName(), is("BMW M6"));
+        assertThat(garage.get(2).getName(), is("Jaguar XJ"));
+        assertThat(garage.get(3).getName(), is("Toyota Corolla"));
     }
 }

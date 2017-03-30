@@ -1,9 +1,11 @@
 package com.example.generics.step8;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class DynamicSizedGarage<T extends Vehicle> {
 
@@ -46,5 +48,22 @@ public class DynamicSizedGarage<T extends Vehicle> {
         for (T vehicle : vehicles) {
             consumer.accept(vehicle);
         }
+    }
+
+    // FIXME: <? super T> or <? extends T>
+    public void fill(Supplier<T> supplier, int count) {
+        for (int i = 0; i < count; i++) {
+            vehicles.add(supplier.get());
+        }
+    }
+
+    // FIXME: <? super T> or <? extends T>
+    public void merge(DynamicSizedGarage<T> garage) {
+        vehicles.addAll(garage.vehicles);
+    }
+
+    // FIXME: <? super T> or <? extends T>
+    public void sort(Comparator<T> comparator) {
+        vehicles.sort(comparator);
     }
 }
