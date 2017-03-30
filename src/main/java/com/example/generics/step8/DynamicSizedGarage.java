@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -40,6 +41,14 @@ public class DynamicSizedGarage<T extends Vehicle> {
             if (predicate.test(vehicle)) {
                 result.add(vehicle);
             }
+        }
+        return result;
+    }
+
+    public <U> List<U> map(Function<T, U> function) {
+        List<U> result = new ArrayList<>();
+        for (T vehicle : vehicles) {
+            result.add(function.apply(vehicle));
         }
         return result;
     }

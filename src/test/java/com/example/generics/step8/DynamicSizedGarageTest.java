@@ -1,11 +1,14 @@
 package com.example.generics.step8;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -184,5 +187,16 @@ public class DynamicSizedGarageTest {
         assertThat(garage.get(1).getName(), is("BMW M6"));
         assertThat(garage.get(2).getName(), is("Jaguar XJ"));
         assertThat(garage.get(3).getName(), is("Toyota Corolla"));
+    }
+
+    @Test
+    public void testMap() {
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.add(new Car("BMW"));
+        garage.add(new Car("Jaguar"));
+        garage.add(new Car("Aston Martin"));
+
+        List<String> names = garage.map(Vehicle::getName);
+        assertThat(names, hasItems("BMW", "Jaguar", "Aston Martin"));
     }
 }
