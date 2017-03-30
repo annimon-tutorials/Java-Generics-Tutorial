@@ -25,14 +25,14 @@ public class DynamicSizedGarage<T extends Vehicle> {
         return vehicles.get(index);
     }
 
-    public void replaceWith(List<T> list) {
+    public void replaceWith(List<? extends T> list) {
         final int listSize = list.size();
         final int size = vehicles.size();
         vehicles.subList(0, Math.min(listSize, size)).clear();
         vehicles.addAll(0, list);
     }
 
-    public List<T> filter(Predicate<T> predicate) {
+    public List<T> filter(Predicate<? super T> predicate) {
         List<T> result = new ArrayList<>();
         for (T vehicle : vehicles) {
             if (predicate.test(vehicle)) {

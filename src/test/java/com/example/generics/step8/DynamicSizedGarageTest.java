@@ -3,6 +3,7 @@ package com.example.generics.step8;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -105,6 +106,16 @@ public class DynamicSizedGarageTest {
         assertThat(garage.get(0).getName(), is("Aston Martin"));
         assertThat(garage.get(1).getName(), is("Audi"));
         assertThat(garage.get(2).getName(), is("BMW"));
+
+
+        List<Truck> trucks = new ArrayList<>();
+        trucks.add(new Truck("Terminator"));
+
+        garage.replaceWith(trucks);
+
+        assertThat(garage.get(0).getName(), is("Terminator"));
+        assertThat(garage.get(1).getName(), is("Audi"));
+        assertThat(garage.get(2).getName(), is("BMW"));
     }
 
     @Test
@@ -123,5 +134,11 @@ public class DynamicSizedGarageTest {
         assertThat(cars.get(0).getName(), is("Aston Martin DB11"));
         assertThat(cars.get(1).getName(), is("Aston Martin Rapide S"));
         assertThat(cars.get(2).getName(), is("Aston Martin Vanquish"));
+
+        Predicate<Vehicle> jaguarFilter = v -> v.getName().startsWith("Jaguar");
+        List<Car> jaguars = garage.filter(jaguarFilter);
+        assertThat(jaguars.size(), is(2));
+        assertThat(jaguars.get(0).getName(), is("Jaguar XJ"));
+        assertThat(jaguars.get(1).getName(), is("Jaguar XF"));
     }
 }
