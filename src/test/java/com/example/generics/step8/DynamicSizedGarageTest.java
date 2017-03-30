@@ -88,4 +88,40 @@ public class DynamicSizedGarageTest {
         garage.forEach(vehicleConsumer);
         garage.forEach(objectConsumer);
     }
+
+    @Test
+    public void testReplaceAll() {
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.add(new Car("Toyota"));
+        garage.add(new Car("Jaguar"));
+        garage.add(new Car("BMW"));
+
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car("Aston Martin"));
+        cars.add(new Car("Audi"));
+
+        garage.replaceWith(cars);
+
+        assertThat(garage.get(0).getName(), is("Aston Martin"));
+        assertThat(garage.get(1).getName(), is("Audi"));
+        assertThat(garage.get(2).getName(), is("BMW"));
+    }
+
+    @Test
+    public void testFilter() {
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.add(new Car("BMW M6"));
+        garage.add(new Car("Jaguar XJ"));
+        garage.add(new Car("Aston Martin DB11"));
+        garage.add(new Car("Jaguar XF"));
+        garage.add(new Car("Aston Martin Rapide S"));
+        garage.add(new Car("Aston Martin Vanquish"));
+        garage.add(new Car("Toyota Corolla"));
+
+        List<Car> cars = garage.filter(c -> c.getName().startsWith("Aston Martin"));
+        assertThat(cars.size(), is(3));
+        assertThat(cars.get(0).getName(), is("Aston Martin DB11"));
+        assertThat(cars.get(1).getName(), is("Aston Martin Rapide S"));
+        assertThat(cars.get(2).getName(), is("Aston Martin Vanquish"));
+    }
 }
