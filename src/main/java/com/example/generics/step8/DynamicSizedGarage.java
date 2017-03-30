@@ -2,7 +2,9 @@ package com.example.generics.step8;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -26,6 +28,21 @@ public class DynamicSizedGarage<T extends Vehicle> {
 
     public T get(int index) {
         return vehicles.get(index);
+    }
+
+    public <U extends T> void addIf(
+            List<? extends U> list, BiPredicate<? super T, ? super U> predicate) {
+        List<U> candidatesToAdd = new ArrayList<>();
+        Iterator<? extends U> it1 = list.iterator();
+        Iterator<? extends T> it2 = vehicles.iterator();
+        while (it1.hasNext() && it2.hasNext()) {
+            U u = it1.next();
+            T t = it2.next();
+            if (predicate.test(t, u)) {
+                candidatesToAdd.add(u);
+            }
+        }
+        addAll(candidatesToAdd);
     }
 
     public void replaceWith(List<? extends T> list) {

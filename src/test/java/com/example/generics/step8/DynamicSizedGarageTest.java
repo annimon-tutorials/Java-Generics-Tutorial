@@ -199,4 +199,25 @@ public class DynamicSizedGarageTest {
         List<String> names = garage.map(Vehicle::getName);
         assertThat(names, hasItems("BMW", "Jaguar", "Aston Martin"));
     }
+
+    @Test
+    public void testAddIf() {
+        DynamicSizedGarage<Car> garage = new DynamicSizedGarage<>();
+        garage.add(new Car("BMW"));
+        garage.add(new Car("Jaguar"));
+        garage.add(new Car("Aston Martin"));
+
+        List<Truck> trucks = new ArrayList<>();
+        trucks.add(new Truck("Bulldozer"));
+        trucks.add(new Truck("Terminator"));
+        trucks.add(new Truck("Asterisk"));
+
+        garage.addIf(trucks, (t, u) -> u.getName().startsWith(t.getName().substring(0, 1)));
+
+        assertThat(garage.get(0).getName(), is("BMW"));
+        assertThat(garage.get(1).getName(), is("Jaguar"));
+        assertThat(garage.get(2).getName(), is("Aston Martin"));
+        assertThat(garage.get(3).getName(), is("Bulldozer"));
+        assertThat(garage.get(4).getName(), is("Asterisk"));
+    }
 }
